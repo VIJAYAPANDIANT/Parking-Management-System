@@ -1,7 +1,29 @@
 import Database from 'better-sqlite3';
 import bcrypt from 'bcryptjs';
+import path from 'path';
+import fs from 'fs';
 
-const db = new Database('./db/parking.db', { verbose: console.log });
+const isVercel = process.env.VERCEL === '1';
+const dbPath = isVercel ? '/tmp/parking.db' : './db/parking.db';
+
+// Ensure writable database path on Vercel by copying the seed template
+if (isVercel) {
+  try {
+    const srcPath = path.resolve('./db/parking.db');
+    if (fs.existsSync(srcPath)) {
+      if (!fs.existsSync(dbPath)) {
+        fs.copyFileSync(srcPath, dbPath);
+        console.log('Database seeded template copied to /tmp successfully');
+      }
+    } else {
+      console.log('Database template not found at ' + srcPath);
+    }
+  } catch (err) {
+    console.error('Failed to copy database file to /tmp:', err);
+  }
+}
+
+const db = new Database(dbPath, { verbose: console.log });
 
 // Enable foreign key support in SQLite
 db.pragma('foreign_keys = ON');
