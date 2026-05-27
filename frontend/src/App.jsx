@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 import Entry from './pages/Entry';
 import Exit from './pages/Exit';
 import Slots from './pages/Slots';
+import Rates from './pages/Rates';
+import Reservations from './pages/Reservations';
 
 const ProtectedRoute = ({ children, requireAdmin }) => {
   const { user, loading } = useAuth();
@@ -94,6 +96,22 @@ function App() {
                   element={
                     <ProtectedRoute requireAdmin={true}>
                       <Slots />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="rates" 
+                  element={
+                    <ProtectedRoute requireAdmin={true}>
+                      <Rates />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="reservations" 
+                  element={
+                    <ProtectedRoute>
+                      <Reservations />
                     </ProtectedRoute>
                   } 
                 />

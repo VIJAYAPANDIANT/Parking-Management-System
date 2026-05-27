@@ -34,10 +34,29 @@ router.post('/', verifyAdmin, (req, res) => {
 router.delete('/:id', verifyAdmin, (req, res) => {
   const { id } = req.params;
   try {
+    const slot = db.prepare('SELECT status FROM slots WHERE id = ?').get(id);
+    if (!slot) {
+      return res.status(404).json({ error: 'Slot not found' });
+    }
+    if (slot.status === 'Occupied') {
+      return res.status(400).json({ error: 'Cannot delete an occupied slot' });
+    }
+
+    const activeRecord = db.prepare('SELECT id FROM parking_records WHERE slot_id = ? AND exit_time IS NULL').get(id);
+    if (activeRecord) {
+      return res.status(400).json({ error: 'Cannot delete slot: it is currently occupied' });
+    }
+
+    const pendingReservation = db.prepare('SELECT id FROM reservations WHERE slot_id = ? AND status = "Pending"').get(id);
+    if (pendingReservation) {
+      return res.status(400).json({ error: 'Cannot delete slot: it has a pending reservation' });
+    }
+
     db.prepare('DELETE FROM slots WHERE id = ?').run(id);
     res.json({ message: 'Slot deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete slot' });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete slot. It is referenced by existing parking history.' });
   }
 });
 

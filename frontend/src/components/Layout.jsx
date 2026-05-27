@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { LogOut, LayoutDashboard, CarFront, LogIn, UserPlus, Moon, Sun, ParkingCircle } from 'lucide-react';
+import { LogOut, LayoutDashboard, CarFront, LogIn, UserPlus, Moon, Sun, ParkingCircle, CalendarDays, Coins, Settings } from 'lucide-react';
 
 export default function Layout() {
   const { user, logout } = useAuth();
@@ -37,10 +37,18 @@ export default function Layout() {
                     <Link to="/exit" className="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                       <LogOut className="w-4 h-4 mr-2" /> Vehicle Exit
                     </Link>
+                    <Link to="/reservations" className="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                      <CalendarDays className="w-4 h-4 mr-2" /> Reservations
+                    </Link>
                     {user.role === 'Admin' && (
-                      <Link to="/slots" className="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Slot Management
-                      </Link>
+                      <>
+                        <Link to="/slots" className="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                          <Settings className="w-4 h-4 mr-2" /> Slots
+                        </Link>
+                        <Link to="/rates" className="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                          <Coins className="w-4 h-4 mr-2" /> Rates
+                        </Link>
+                      </>
                     )}
                   </>
                 )}

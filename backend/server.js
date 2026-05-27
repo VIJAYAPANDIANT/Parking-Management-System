@@ -5,6 +5,8 @@ import authRoutes from './routes/auth.js';
 import slotRoutes from './routes/slots.js';
 import parkingRoutes from './routes/parking.js';
 import dashboardRoutes from './routes/dashboard.js';
+import ratesRoutes from './routes/rates.js';
+import reservationsRoutes from './routes/reservations.js';
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/slots', slotRoutes);
 app.use('/api/parking', parkingRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/rates', ratesRoutes);
+app.use('/api/reservations', reservationsRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -4,10 +4,7 @@ import { verifyToken } from './auth.js';
 
 const router = express.Router();
 
-const RATES = {
-  Car: 50, // per hour
-  Bike: 20 // per hour
-};
+// Rates are now fetched dynamically from the SQLite 'rates' table.
 
 // Vehicle Entry
 router.post('/entry', verifyToken, (req, res) => {
@@ -75,7 +72,9 @@ router.post('/exit', verifyToken, (req, res) => {
     let hours = Math.ceil(msDiff / (1000 * 60 * 60));
     if (hours < 1) hours = 1;
 
-    const fee = hours * RATES[record.type];
+    const rateRow = db.prepare('SELECT hourly_rate FROM rates WHERE vehicle_type = ?').get(record.type);
+    const hourlyRate = rateRow ? rateRow.hourly_rate : (record.type === 'Car' ? 50 : 20);
+    const fee = hours * hourlyRate;
     const exitTimeStr = exitTime.toISOString();
 
     db.prepare('UPDATE parking_records SET exit_time = ?, fee = ? WHERE id = ?').run(exitTimeStr, fee, record.id);

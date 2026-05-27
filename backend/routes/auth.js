@@ -7,16 +7,20 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret_parking_key_123';
 
 router.post('/register', async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, admin_secret_key } = req.body;
   if (!name || !email || !password || !role) {
     return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  if (role === 'Admin' && admin_secret_key !== 'admin123') {
+    return res.status(400).json({ error: 'Invalid Admin Secret Key' });
   }
 
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const stmt = db.prepare('INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)');
-    const info = stmt.run(name, email, hashedPassword, 'User');
+    const info = stmt.run(name, email, hashedPassword, role);
     
     res.status(201).json({ id: info.lastInsertRowid, message: 'User registered successfully' });
   } catch (error) {
