@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json({ status: 'healthy', message: 'SmartParking API Server is running successfully!' });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/slots', slotRoutes);
 app.use('/api/parking', parkingRoutes);
