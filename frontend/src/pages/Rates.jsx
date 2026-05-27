@@ -13,7 +13,7 @@ export default function Rates() {
 
   const fetchRates = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/rates');
+      const res = await axios.get('/api/rates');
       // Format response array [{vehicle_type: 'Car', hourly_rate: 50}, ...]
       const ratesMap = {};
       res.data.forEach(item => {
@@ -40,7 +40,7 @@ export default function Rates() {
     setError('');
     setSaving(true);
     try {
-      await axios.put('http://localhost:5000/api/rates', {
+      await axios.put('/api/rates', {
         rates: {
           Car: carRate,
           Bike: bikeRate

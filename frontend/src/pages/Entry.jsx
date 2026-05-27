@@ -16,7 +16,7 @@ export default function Entry() {
     setTicket(null);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/parking/entry', { 
+      const res = await axios.post('/api/parking/entry', { 
         vehicle_number: vehicleNumber.toUpperCase(), 
         type 
       });

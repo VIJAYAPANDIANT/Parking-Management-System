@@ -14,9 +14,9 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       const [statsRes, activeRes, slotsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/dashboard'),
-        axios.get('http://localhost:5000/api/parking/active'),
-        axios.get('http://localhost:5000/api/slots')
+        axios.get('/api/dashboard'),
+        axios.get('/api/parking/active'),
+        axios.get('/api/slots')
       ]);
       setStats(statsRes.data);
       setActiveVehicles(activeRes.data);

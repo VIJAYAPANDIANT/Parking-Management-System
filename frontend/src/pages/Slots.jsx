@@ -10,7 +10,7 @@ export default function Slots() {
 
   const fetchSlots = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/slots');
+      const res = await axios.get('/api/slots');
       setSlots(res.data);
     } catch (err) {
       console.error(err);
@@ -27,7 +27,7 @@ export default function Slots() {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post('http://localhost:5000/api/slots', { type: newType });
+      const res = await axios.post('/api/slots', { type: newType });
       setSlots([...slots, res.data]);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to create slot');
@@ -37,7 +37,7 @@ export default function Slots() {
   const handleDelete = async (id) => {
     if (!confirm('Are you sure you want to delete this slot?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/slots/${id}`);
+      await axios.delete(`/api/slots/${id}`);
       setSlots(slots.filter(s => s.id !== id));
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to delete slot');

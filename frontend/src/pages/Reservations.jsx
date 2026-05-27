@@ -23,8 +23,8 @@ export default function Reservations() {
   const fetchData = async () => {
     try {
       const [resResponse, slotsResponse] = await Promise.all([
-        axios.get('http://localhost:5000/api/reservations'),
-        axios.get('http://localhost:5000/api/slots')
+        axios.get('/api/reservations'),
+        axios.get('/api/slots')
       ]);
       setReservations(resResponse.data);
       setSlots(slotsResponse.data);
@@ -58,7 +58,7 @@ export default function Reservations() {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/reservations', {
+      await axios.post('/api/reservations', {
         vehicle_number: vehicleNumber.toUpperCase(),
         vehicle_type: vehicleType,
         slot_id: parseInt(selectedSlot),
@@ -82,7 +82,7 @@ export default function Reservations() {
     setError('');
     setSuccess('');
     try {
-      await axios.post(`http://localhost:5000/api/reservations/${resId}/checkin`);
+      await axios.post(`/api/reservations/${resId}/checkin`);
       setSuccess('Vehicle checked in successfully! Yard slot marked as Occupied.');
       fetchData();
     } catch (err) {
@@ -95,7 +95,7 @@ export default function Reservations() {
     setError('');
     setSuccess('');
     try {
-      await axios.post(`http://localhost:5000/api/reservations/${resId}/cancel`);
+      await axios.post(`/api/reservations/${resId}/cancel`);
       setSuccess('Reservation cancelled successfully.');
       fetchData();
     } catch (err) {

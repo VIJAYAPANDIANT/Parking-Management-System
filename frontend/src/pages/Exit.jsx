@@ -14,7 +14,7 @@ export default function Exit() {
     setReceipt(null);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/parking/exit', { 
+      const res = await axios.post('/api/parking/exit', { 
         vehicle_number: vehicleNumber.toUpperCase()
       });
       setReceipt({
