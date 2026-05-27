@@ -104,9 +104,21 @@ export default function Login() {
         {/* Right Side: Glassmorphism Login Form */}
         <div className="lg:col-span-6 w-full max-w-md mx-auto">
           <div className="backdrop-blur-md bg-white/5 dark:bg-black/30 border border-white/10 rounded-3xl shadow-2xl p-8 space-y-6">
-            <div className="space-y-2 text-center lg:text-left">
-              <h2 className="text-3xl font-bold tracking-tight text-white">Sign In</h2>
-              <p className="text-sm text-slate-400">Enter your details to manage your parking spaces</p>
+            <div className="flex flex-col items-center lg:items-start space-y-4">
+              <div className="flex items-center gap-2.5">
+                <svg className="h-10 w-10" viewBox="0 0 512 512">
+                  <circle cx="256" cy="256" r="240" fill="#4f46e5" />
+                  <circle cx="256" cy="256" r="200" fill="none" stroke="#ffffff" strokeWidth="20" strokeOpacity="0.25" />
+                  <path d="M256,56 A200,200 0 0,1 416,376" fill="none" stroke="#ffffff" strokeWidth="20" strokeLinecap="round" />
+                  <path d="M190,140 L280,140 C330,140 360,165 360,210 C360,255 330,280 280,280 L235,280 L235,380 L190,380 Z M235,185 L235,235 L275,235 C295,235 310,225 310,210 C310,195 295,185 275,185 Z" fill="#ffffff" />
+                  <path d="M340,320 L300,370 L330,370 L290,430 L350,360 L320,360 Z" fill="#38bdf8" />
+                </svg>
+                <span className="text-2xl font-black tracking-tight text-white">SmartParking</span>
+              </div>
+              <div className="space-y-1 text-center lg:text-left">
+                <h2 className="text-xl font-bold tracking-tight text-white">Sign In</h2>
+                <p className="text-sm text-slate-400">Enter your details to manage your parking spaces</p>
+              </div>
             </div>
 
             {error && (

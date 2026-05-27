@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background Circle with Gradient -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGrad)" />
+  
+  <!-- Outer Ring representing a slot boundary -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#ffffff" stroke-width="20" stroke-opacity="0.2" />
+  <path d="M256,56 A200,200 0 0,1 416,376" fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round" />
+  
+  <!-- Bold Modern P Letter -->
+  <path d="M190,140 L280,140 C330,140 360,165 360,210 C360,255 330,280 280,280 L235,280 L235,380 L190,380 Z M235,185 L235,235 L275,235 C295,235 310,225 310,210 C310,195 295,185 275,185 Z" fill="#ffffff" filter="url(#glow)" />
+  
+  <!-- Stylized lighting/electric accent for smart parking -->
+  <path d="M340,320 L300,370 L330,370 L290,430 L350,360 L320,360 Z" fill="#38bdf8" />
+</svg>
